@@ -166,7 +166,7 @@ body > * {
            Sets the initial zoom to 80% on laptops/smaller screens 
            so more content fits in the viewport.
         */
-        zoom: 0.8; 
+        zoom: 0.85; 
     }
 }
 
