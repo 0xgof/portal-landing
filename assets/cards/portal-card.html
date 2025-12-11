@@ -1,0 +1,76 @@
+<!-- Portal Card Template -->
+<!-- Usage: Copy and customize for each portal type -->
+
+<!--
+Available variants:
+- admin-card (green header)
+- designer-card (orange header)  
+- partner-card (dark header)
+
+Required placeholders to replace:
+- {variant} - Card variant (admin, designer, partner)
+- {icon} - Icon filename without extension
+- {LABEL} - Header label text (uppercase)
+- {Title} - Card title
+- {Description} - Card description text
+- {url} - Button link URL
+- {Button Text} - Button label
+
+For disabled buttons, add class "btn-disabled" to the anchor tag.
+-->
+
+<!-- Template -->
+<div class="portal-card {variant}-card" tabindex="0">
+    <div class="card-header">
+        <img src="images/icons/{icon}.svg" alt="{LABEL}" class="card-icon">
+        <span class="card-label">{LABEL}</span>
+    </div>
+    <div class="card-body">
+        <h2>{Title}</h2>
+        <p>{Description}</p>
+        <a href="{url}" class="btn">{Button Text}</a>
+    </div>
+</div>
+
+<!-- ========================================== -->
+<!-- EXAMPLES -->
+<!-- ========================================== -->
+
+<!-- Admin Card Example -->
+<div class="portal-card admin-card" tabindex="0">
+    <div class="card-header">
+        <img src="images/icons/admin.svg" alt="Admin" class="card-icon">
+        <span class="card-label">ADMINS</span>
+    </div>
+    <div class="card-body">
+        <h2>Admin Panel</h2>
+        <p>Manage products, users, orders and platform settings. Full control over the DreamDo ecosystem.</p>
+        <a href="/admin" class="btn">Access Panel</a>
+    </div>
+</div>
+
+<!-- Designer Card Example -->
+<div class="portal-card designer-card" tabindex="0">
+    <div class="card-header">
+        <img src="images/icons/designer.svg" alt="Designer" class="card-icon">
+        <span class="card-label">DESIGNERS</span>
+    </div>
+    <div class="card-body">
+        <h2>Designer Studio</h2>
+        <p>Upload designs, track sales and manage your creative portfolio.</p>
+        <a href="/designer" class="btn">Open Studio</a>
+    </div>
+</div>
+
+<!-- Partner Card Example (with disabled button) -->
+<div class="portal-card partner-card" tabindex="0">
+    <div class="card-header">
+        <img src="images/icons/partner.svg" alt="Partner" class="card-icon">
+        <span class="card-label">PARTNERS</span>
+    </div>
+    <div class="card-body">
+        <h2>Partner Dashboard</h2>
+        <p>View analytics, manage integrations and access partner resources.</p>
+        <a href="#" class="btn btn-disabled">Coming Soon</a>
+    </div>
+</div>

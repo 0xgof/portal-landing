@@ -1,0 +1,208 @@
+/* ==========================================
+   Portal Card Component
+   Reusable card component for portal landing
+   ========================================== */
+
+/* Portal Card Base */
+.portal-card {
+    background: #FFFDF9;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 4px solid rgba(117, 105, 95, 0.5);
+}
+
+/* Background image layer - covers entire card */
+.portal-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../../images/pendant.svg');
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: 150%;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 15px;
+}
+
+/* Ensure card content stays above background */
+.portal-card .card-header,
+.portal-card .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   Coming Soon Overlay
+   Toggle with .coming-soon class on card
+   ========================================== */
+
+.portal-card.coming-soon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.4);
+    z-index: 10;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.portal-card.coming-soon::after {
+    content: 'Coming Soon!';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-40deg);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgba(80, 80, 80, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    white-space: nowrap;
+    z-index: 11;
+    pointer-events: none;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.portal-card.coming-soon:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.portal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Header */
+.card-header {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    color: #fff;
+    border-radius: 7px;
+}
+
+.card-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.card-label {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.5rem;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #2D2D2D;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+/* Button centered in card */
+.card-body .portal-btn {
+    display: block;
+    margin: 0 auto;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================
+   Card Color Variants
+   ========================================== */
+
+/* Admin Card - Green with Bevel */
+.admin-card .card-header {
+    background: linear-gradient(135deg, #4A6741 0%, #5A7751 100%);
+}
+
+/* Designer Card - Orange */
+.designer-card .card-header {
+    background: linear-gradient(135deg, #C4704C 0%, #D4805C 100%);
+}
+
+/* Partner Card - Dark */
+.partner-card .card-header {
+    background: linear-gradient(135deg, #4A3F3F 0%, #5A4F4F 100%);
+}
+
+/* ==========================================
+   Card Animations
+   ========================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered animation delays for multiple cards */
+.portal-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.portal-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.portal-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.portal-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.portal-card:nth-child(5) {
+    animation-delay: 0.5s;
+}

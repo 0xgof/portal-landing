@@ -1,0 +1,103 @@
+/* ==========================================
+   Portal Button Component
+   Reusable button component for portal cards
+   ========================================== */
+
+/* Base Button */
+.portal-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #2D2D2D;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+}
+
+.portal-btn:hover {
+    background: #444;
+    transform: scale(1.02);
+}
+
+.portal-btn:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================
+   Button Variants by Card Type
+   ========================================== */
+
+/* Admin Button - Green */
+.portal-btn-admin {
+    background: linear-gradient(135deg, #4A6741 0%, #5A7751 100%);
+}
+
+.portal-btn-admin:hover {
+    background: linear-gradient(135deg, #5A7751 0%, #6A8761 100%);
+}
+
+/* Designer Button - Orange */
+.portal-btn-designer {
+    background: linear-gradient(135deg, #C4704C 0%, #D4805C 100%);
+}
+
+.portal-btn-designer:hover {
+    background: linear-gradient(135deg, #D4805C 0%, #E4906C 100%);
+}
+
+/* Partner Button - Dark */
+.portal-btn-partner {
+    background: linear-gradient(135deg, #4A3F3F 0%, #5A4F4F 100%);
+}
+
+.portal-btn-partner:hover {
+    background: linear-gradient(135deg, #5A4F4F 0%, #6A5F5F 100%);
+}
+
+/* ==========================================
+   Button States
+   ========================================== */
+
+/* Disabled State */
+.portal-btn-disabled,
+.portal-btn[disabled] {
+    background: #ccc;
+    color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.portal-btn-disabled:hover,
+.portal-btn[disabled]:hover {
+    background: #ccc;
+    transform: none;
+}
+
+/* ==========================================
+   Button Sizes
+   ========================================== */
+
+/* Small Button */
+.portal-btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+/* Large Button */
+.portal-btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
+
+/* Full Width Button */
+.portal-btn-full {
+    width: 100%;
+    text-align: center;
+}

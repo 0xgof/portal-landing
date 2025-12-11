@@ -1,0 +1,196 @@
+/* Import Components */
+@import '../assets/cards/portal-card.css';
+@import '../assets/buttons/portal-btn.css';
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, 
+        #F5EDE4 0%, 
+        #F5EDE4 50%, 
+        #E8DDD0 50%, 
+        #E8DDD0 100%);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Banner Background Image - Top half only */
+body {
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 50% 0; /* shorthand alternative if desired */
+    height: 50%;
+    background: url('../images/banner_image.svg') no-repeat right center;
+    background-size: auto 200%;
+    opacity: 1;
+
+    /* Gradient mask */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 30%, black 80%);
+    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, black 80%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ensure content stays above background */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.header {
+    padding: 1.5rem 2rem;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 2rem;
+    padding-bottom: 10vh;
+}
+
+/* Hero Section */
+.hero {
+    text-align: left;
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 1rem;
+}
+
+.hero-title {
+    font-family: 'STIX Two Math', serif;
+    font-size: 4.5rem;
+    font-weight: 400;
+    color: #2D2D2D;
+    letter-spacing: -1px;
+    line-height: 1.1;
+}
+
+.hero-title em {
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* Portal Cards Container */
+.portals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    width: 100%;
+    padding: 0 1rem;
+}
+
+/* Button styles moved to assets/buttons/portal-btn.css */
+
+/* Button Fallback (in case @import fails) */
+.portal-btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #2D2D2D;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.portal-btn:hover {
+    background: #444;
+    transform: scale(1.02);
+}
+
+.portal-btn-admin {
+    background: linear-gradient(135deg, #4A6741 0%, #5A7751 100%);
+}
+
+.portal-btn-designer {
+    background: linear-gradient(135deg, #C4704C 0%, #D4805C 100%);
+}
+
+.portal-btn-partner {
+    background: linear-gradient(135deg, #4A3F3F 0%, #5A4F4F 100%);
+}
+
+.portal-btn-disabled {
+    background: #ccc;
+    color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+/* Add this to scale down the whole page on smaller/lower-res screens */
+@media (max-width: 1366px), (max-height: 800px) {
+    html {
+        /* 
+           Sets the initial zoom to 80% on laptops/smaller screens 
+           so more content fits in the viewport.
+        */
+        zoom: 0.8; 
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .portals {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+}

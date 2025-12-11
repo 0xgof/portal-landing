@@ -1,0 +1,74 @@
+<!-- Portal Button Component Template -->
+<!-- Usage: Copy and customize for each portal type -->
+
+<!--
+Available variants:
+- portal-btn-admin (green gradient)
+- portal-btn-designer (orange gradient)
+- portal-btn-partner (dark gradient)
+
+Available states:
+- portal-btn-disabled (grayed out, non-interactive)
+
+Available sizes:
+- portal-btn-sm (smaller)
+- portal-btn-lg (larger)
+- portal-btn-full (full width)
+
+Combine classes as needed:
+class="portal-btn portal-btn-admin"
+class="portal-btn portal-btn-designer portal-btn-disabled"
+-->
+
+<!-- ========================================== -->
+<!-- BASE TEMPLATE -->
+<!-- ========================================== -->
+
+<a href="{url}" class="portal-btn">{Button Text}</a>
+
+
+<!-- ========================================== -->
+<!-- ADMIN BUTTON EXAMPLES -->
+<!-- ========================================== -->
+
+<!-- Admin Button - Active -->
+<a href="/admin-panel/" class="portal-btn portal-btn-admin">Access Panel</a>
+
+<!-- Admin Button - Disabled -->
+<a href="#" class="portal-btn portal-btn-admin portal-btn-disabled" aria-disabled="true">Access Panel</a>
+
+
+<!-- ========================================== -->
+<!-- DESIGNER BUTTON EXAMPLES -->
+<!-- ========================================== -->
+
+<!-- Designer Button - Active -->
+<a href="/designer-studio/" class="portal-btn portal-btn-designer">Open Studio</a>
+
+<!-- Designer Button - Disabled (Coming Soon) -->
+<a href="#" class="portal-btn portal-btn-designer portal-btn-disabled" aria-disabled="true">Coming Soon</a>
+
+
+<!-- ========================================== -->
+<!-- PARTNER BUTTON EXAMPLES -->
+<!-- ========================================== -->
+
+<!-- Partner Button - Active -->
+<a href="/partner-hub/" class="portal-btn portal-btn-partner">Partner Hub</a>
+
+<!-- Partner Button - Disabled (Coming Soon) -->
+<a href="#" class="portal-btn portal-btn-partner portal-btn-disabled" aria-disabled="true">Coming Soon</a>
+
+
+<!-- ========================================== -->
+<!-- SIZE VARIATIONS -->
+<!-- ========================================== -->
+
+<!-- Small Button -->
+<a href="#" class="portal-btn portal-btn-admin portal-btn-sm">Small Button</a>
+
+<!-- Large Button -->
+<a href="#" class="portal-btn portal-btn-admin portal-btn-lg">Large Button</a>
+
+<!-- Full Width Button -->
+<a href="#" class="portal-btn portal-btn-admin portal-btn-full">Full Width Button</a>
