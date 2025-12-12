@@ -1,6 +1,6 @@
 /* Import Components */
-@import '../assets/cards/portal-card.css';
-@import '../assets/buttons/portal-btn.css';
+@import '../components/cards/portal-card.css';
+@import '../components/buttons/portal-btn.css';
 
 /* Reset and Base Styles */
 * {
