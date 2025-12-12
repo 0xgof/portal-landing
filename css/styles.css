@@ -10,7 +10,7 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: 13px;
 }
 
 body {
@@ -63,7 +63,7 @@ body > * {
 }
 
 .logo {
-    height: 40px;
+    height: 2.5rem;
     width: auto;
 }
 
@@ -83,7 +83,7 @@ body > * {
     text-align: left;
     margin-bottom: 3rem;
     width: 100%;
-    max-width: 1000px;
+    max-width: 62.5rem;
     padding: 0 1rem;
 }
 
@@ -92,7 +92,7 @@ body > * {
     font-size: 4.5rem;
     font-weight: 400;
     color: #2D2D2D;
-    letter-spacing: -1px;
+    letter-spacing: -0.0625rem;
     line-height: 1.1;
 }
 
@@ -104,9 +104,9 @@ body > * {
 /* Portal Cards Container */
 .portals {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 62.5rem;
     width: 100%;
     padding: 0 1rem;
 }
@@ -120,7 +120,7 @@ body > * {
     background: #2D2D2D;
     color: #fff;
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 3.125rem;
     font-size: 0.9rem;
     font-weight: 500;
     transition: background 0.2s ease, transform 0.2s ease;
@@ -158,30 +158,44 @@ body > * {
     font-size: 0.85rem;
 }
 
-/* Responsive */
-/* Add this to scale down the whole page on smaller/lower-res screens */
-@media (max-width: 1366px), (max-height: 800px) {
+/* Responsive Scaling System */
+
+/* Large screens (e.g. 4K) - Scale up */
+@media (min-width: 2000px) {
     html {
-        /* 
-           Sets the initial zoom to 80% on laptops/smaller screens 
-           so more content fits in the viewport.
-        */
-        zoom: 0.85; 
+        font-size: 20px;
     }
 }
 
+/* Standard Laptops / Short Screens - Scale down */
+@media (max-width: 1366px), (max-height: 800px) {
+    html {
+        font-size: 12px; 
+    }
+}
+
+/* Tablets */
 @media (max-width: 768px) {
+    html {
+        font-size: 14px; /* Bump up for readability on touch */
+    }
+
     .hero-title {
         font-size: 3rem;
     }
     
     .portals {
         grid-template-columns: 1fr;
-        max-width: 400px;
+        max-width: 25rem;
     }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+
     .header {
         padding: 1rem;
     }

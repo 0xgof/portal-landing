@@ -10,14 +10,14 @@
     background: #2D2D2D;
     color: #fff;
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 3.125rem;
     font-size: 0.9rem;
     font-weight: 500;
     border: none;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.2s ease;
     width: 100%;
-    max-width: 250px;
+    max-width: 15.625rem;
     text-align: center;
 }
 
