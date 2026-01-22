@@ -9,7 +9,7 @@
     border-radius: 1.25rem;
     overflow: hidden;
     box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     animation: fadeInUp 0.5s ease forwards;
     opacity: 0;
     padding: 0.5rem;
@@ -17,6 +17,7 @@
     flex-direction: column;
     position: relative;
     border: 0.25rem solid rgba(117, 105, 95, 0.5);
+    cursor: pointer;
 }
 
 /* Background image layer - covers entire card */
@@ -27,16 +28,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-image: url('../../images/pendant.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 150%;
-    opacity: 0.2; */
-    background-color: rgba(226, 217, 205, 0.5); /* #E2D9CD */
-    opacity: 1; 
+    background-color: rgba(226, 217, 205, 0.5);
     pointer-events: none;
     z-index: 0;
     border-radius: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 /* Ensure card content stays above background */
@@ -88,11 +84,17 @@
 .portal-card.coming-soon:hover {
     transform: none;
     box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+    cursor: not-allowed;
 }
 
 .portal-card:hover {
-    transform: translateY(-0.3125rem);
-    box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-1rem);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18);
+    border-color: rgba(117, 105, 95, 0.8);
+}
+
+.portal-card:hover::after {
+    background-color: rgba(226, 217, 205, 0.65);
 }
 
 /* Card Header */
@@ -183,11 +185,11 @@
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(1.25rem);
+        margin-top: 1.25rem;
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        margin-top: 0;
     }
 }
 
@@ -210,4 +212,71 @@
 
 .portal-card:nth-child(5) {
     animation-delay: 0.5s;
+}
+
+@media (max-width: 768px) {
+    .portal-card {
+        border-radius: 1rem;
+        padding: 0.4rem;
+    }
+
+    .card-header {
+        padding: 1.1rem 1.25rem;
+    }
+
+    .card-label {
+        font-size: 0.95rem;
+        letter-spacing: 0.05rem;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .card-body h2 {
+        font-size: 1.25rem;
+    }
+
+    .card-body p {
+        font-size: 0.92rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .portal-card {
+        border: 0.2rem solid rgba(117, 105, 95, 0.5);
+        padding: 0.3rem;
+        min-height: 18.5rem;
+    }
+
+    .card-header {
+        padding: 0.85rem 1rem;
+    }
+
+    .card-icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .card-body {
+        padding: 0.9rem;
+    }
+
+    .card-body h2 {
+        margin-bottom: 0.5rem;
+    }
+
+    .card-body p {
+        margin-bottom: 1rem;
+    }
+
+    .card-body .portal-btn {
+        width: 100%;
+        max-width: none;
+    }
+
+    .portal-card:hover {
+        transform: none;
+        box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+    }
 }

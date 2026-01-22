@@ -25,6 +25,7 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow-x: hidden;
 }
 
 /* Banner Background Image - Top half only */
@@ -74,6 +75,7 @@ body > * {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    width: 100%;
     padding: 2rem;
     padding-bottom: 10vh;
 }
@@ -89,7 +91,7 @@ body > * {
 
 .hero-title {
     font-family: 'STIX Two Math', serif;
-    font-size: 4.5rem;
+    font-size: clamp(2.4rem, 5.6vw, 4.5rem);
     font-weight: 400;
     color: #2D2D2D;
     letter-spacing: -0.0625rem;
@@ -104,51 +106,14 @@ body > * {
 /* Portal Cards Container */
 .portals {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 2rem;
     max-width: 62.5rem;
     width: 100%;
     padding: 0 1rem;
 }
 
-/* Button styles moved to assets/buttons/portal-btn.css */
-
-/* Button Fallback (in case @import fails) */
-.portal-btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: #2D2D2D;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 3.125rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.portal-btn:hover {
-    background: #444;
-    transform: scale(1.02);
-}
-
-.portal-btn-admin {
-    background: linear-gradient(135deg, #4A6741 0%, #5A7751 100%);
-}
-
-.portal-btn-designer {
-    background: linear-gradient(135deg, #C4704C 0%, #D4805C 100%);
-}
-
-.portal-btn-partner {
-    background: linear-gradient(135deg, #4A3F3F 0%, #5A4F4F 100%);
-}
-
-.portal-btn-disabled {
-    background: #ccc;
-    color: #888;
-    cursor: not-allowed;
-    pointer-events: none;
-}
+/* Button styles moved to components/buttons/portal-btn.css */
 
 /* Footer */
 .footer {
@@ -174,19 +139,47 @@ body > * {
     }
 }
 
+/* Landscape Tablets / Small Laptops */
+@media (max-width: 1024px) {
+    .main-content {
+        padding-bottom: 6vh;
+    }
+
+    body::before {
+        background-position: 85% 45%;
+        background-size: auto 180%;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 75%);
+        mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 75%);
+    }
+}
+
 /* Tablets */
 @media (max-width: 768px) {
     html {
         font-size: 14px; /* Bump up for readability on touch */
     }
 
-    .hero-title {
-        font-size: 3rem;
+    .header {
+        padding: 1.25rem 1.5rem;
     }
-    
+
+    .hero {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 0 0.5rem;
+    }
+
     .portals {
         grid-template-columns: 1fr;
-        max-width: 25rem;
+        max-width: 32rem;
+        gap: 1.5rem;
+    }
+
+    body::before {
+        background-position: 80% 25%;
+        background-size: auto 150%;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 10%, black 65%);
+        mask-image: linear-gradient(to right, transparent 0%, transparent 10%, black 65%);
     }
 }
 
@@ -197,14 +190,56 @@ body > * {
     }
 
     .header {
-        padding: 1rem;
+        padding: 1rem 1.25rem;
+        display: flex;
+        justify-content: center;
     }
-    
-    .hero-title {
-        font-size: 2.2rem;
+
+    .logo {
+        height: 2.1rem;
     }
     
     .main-content {
-        padding: 1rem;
+        padding: 1rem 1.25rem;
+        padding-bottom: 3rem;
+    }
+
+    .hero {
+        margin-bottom: 1.5rem;
+    }
+
+    .portals {
+        max-width: 20rem;
+        padding: 0;
+        gap: 1.25rem;
+    }
+
+    .footer {
+        padding: 1.5rem 1rem 2rem;
+    }
+
+    body::before {
+        height: 52vh;
+        background-position: 70% 35%;
+        background-size: auto 170%;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
+        mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
+    }
+}
+
+/* Vertical / Portrait Screens */
+@media (orientation: portrait) {
+    .main-content {
+        justify-content: center;
+        padding-bottom: 2rem;
+    }
+
+    body::before {
+        inset: 0 0 auto 0;
+        height: 52vh;
+        background-position: 70% 35%;
+        background-size: auto 170%;
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
+        mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
     }
 }
