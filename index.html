@@ -9,8 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=STIX+Two+Math&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
 </head>
 <body>
+    <!-- Three.js glass shader background (layout B only) -->
+    <div id="shader-bg" class="shader-bg"></div>
     <header class="header">
         <img src="images/logo.svg" alt="DreamDo Logo" class="logo">
     </header>
@@ -79,5 +88,12 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script type="module">
+        if (window.PORTAL_CONFIG && window.PORTAL_CONFIG.backgroundLayout === 'B') {
+            const { initGlassShader } = await import('./js/glass-shader.js');
+            const container = document.getElementById('shader-bg');
+            if (container) initGlassShader(container);
+        }
+    </script>
 </body>
 </html>

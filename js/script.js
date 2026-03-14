@@ -5,11 +5,15 @@
 // ==========================================
 const PORTAL_CONFIG = {
     designerComingSoon: false,   // Set to false to remove overlay
-    partnerComingSoon: false     // Set to false to remove overlay
+    partnerComingSoon: false,    // Set to false to remove overlay
+    backgroundLayout: "B"       // Set to "A" or "B" to switch background layout
 };
 
 // Make config globally accessible
 window.PORTAL_CONFIG = PORTAL_CONFIG;
+
+// Apply background layout data attribute immediately
+document.body.setAttribute('data-bg-layout', PORTAL_CONFIG.backgroundLayout);
 
 document.addEventListener('DOMContentLoaded', function() {
     

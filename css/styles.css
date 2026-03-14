@@ -16,11 +16,21 @@ html {
 body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
+
+    /* Background layout variables (overridden per layout) */
+    --bg-top: #F5EDE4;
+    --bg-bottom: #E8DDD0;
+    --banner-pos: right center;
+    --banner-size: auto 200%;
+    --mask-dir: to right;
+    --mask-t-end: 30%;
+    --mask-o-start: 80%;
+
     background: linear-gradient(to bottom, 
-        #F5EDE4 0%, 
-        #F5EDE4 50%, 
-        #E8DDD0 50%, 
-        #E8DDD0 100%);
+        var(--bg-top) 0%, 
+        var(--bg-top) 50%, 
+        var(--bg-bottom) 50%, 
+        var(--bg-bottom) 100%);
     color: #333;
     display: flex;
     flex-direction: column;
@@ -29,22 +39,18 @@ body {
 }
 
 /* Banner Background Image - Top half only */
-body {
-    position: relative;
-}
-
 body::before {
     content: '';
     position: absolute;
-    inset: 0 0 50% 0; /* shorthand alternative if desired */
+    inset: 0 0 50% 0;
     height: 50%;
-    background: url('../images/banner_image.svg') no-repeat right center;
-    background-size: auto 200%;
+    background: url('../images/banner_image.svg') no-repeat var(--banner-pos);
+    background-size: var(--banner-size);
     opacity: 1;
 
     /* Gradient mask */
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 30%, black 80%);
-    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, black 80%);
+    -webkit-mask-image: linear-gradient(var(--mask-dir), transparent 0%, transparent var(--mask-t-end), black var(--mask-o-start));
+    mask-image: linear-gradient(var(--mask-dir), transparent 0%, transparent var(--mask-t-end), black var(--mask-o-start));
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
 
@@ -56,6 +62,40 @@ body::before {
 body > * {
     position: relative;
     z-index: 1;
+}
+
+/* Background Layout B - Glass shader replaces banner image */
+body[data-bg-layout="B"] {
+    --bg-top: #EDE4E0;
+    --bg-bottom: #D8CFC8;
+}
+
+/* Hide the SVG banner when layout B is active */
+body[data-bg-layout="B"]::before {
+    display: none;
+}
+
+/* Show shader canvas when layout B is active */
+body[data-bg-layout="B"] .shader-bg {
+    display: block;
+}
+
+/* Hide hero title in layout B */
+body[data-bg-layout="B"] .hero {
+    display: none;
+}
+
+/* Shader background container - mirrors body::before positioning */
+.shader-bg {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 65%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
 }
 
 /* Header */
@@ -145,11 +185,11 @@ body > * {
         padding-bottom: 6vh;
     }
 
-    body::before {
-        background-position: 85% 45%;
-        background-size: auto 180%;
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 75%);
-        mask-image: linear-gradient(to right, transparent 0%, transparent 20%, black 75%);
+    body {
+        --banner-pos: 85% 45%;
+        --banner-size: auto 180%;
+        --mask-t-end: 20%;
+        --mask-o-start: 75%;
     }
 }
 
@@ -175,11 +215,11 @@ body > * {
         gap: 1.5rem;
     }
 
-    body::before {
-        background-position: 80% 25%;
-        background-size: auto 150%;
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 10%, black 65%);
-        mask-image: linear-gradient(to right, transparent 0%, transparent 10%, black 65%);
+    body {
+        --banner-pos: 80% 25%;
+        --banner-size: auto 150%;
+        --mask-t-end: 10%;
+        --mask-o-start: 65%;
     }
 }
 
@@ -218,12 +258,17 @@ body > * {
         padding: 1.5rem 1rem 2rem;
     }
 
+    body {
+        --banner-pos: 70% 35%;
+        --banner-size: auto 170%;
+        --mask-t-end: 0%;
+        --mask-o-start: 60%;
+    }
+    body[data-bg-layout="B"] .shader-bg {
+        height: 52vh;
+    }
     body::before {
         height: 52vh;
-        background-position: 70% 35%;
-        background-size: auto 170%;
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
-        mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
     }
 }
 
@@ -234,12 +279,17 @@ body > * {
         padding-bottom: 2rem;
     }
 
+    body {
+        --banner-pos: 70% 35%;
+        --banner-size: auto 170%;
+        --mask-t-end: 0%;
+        --mask-o-start: 60%;
+    }
+    body[data-bg-layout="B"] .shader-bg {
+        height: 52vh;
+    }
     body::before {
         inset: 0 0 auto 0;
         height: 52vh;
-        background-position: 70% 35%;
-        background-size: auto 170%;
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
-        mask-image: linear-gradient(to right, transparent 0%, transparent 0%, black 60%);
     }
 }
