@@ -1,0 +1,158 @@
+/* ==========================================
+   Card Reveal Animation - 3D Flip
+   Activated via PORTAL_CONFIG.cardRevealAnimation
+
+   Sequence:
+     1. Banner   - 3 cards merge into one seamless image
+     2. Split    - gap opens, image slices separate
+     3. Flip     - each slice rotates 180deg on Y, revealing card on back
+   ========================================== */
+
+/* ---- Pre-animation: suppress default fadeInUp until JS prepares DOM ---- */
+body[data-card-reveal="true"] .portal-card {
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: hidden;
+}
+
+/* ---- Portals: perspective container ---- */
+.portals.card-reveal-active {
+    position: relative;
+    perspective: 2000px;
+    perspective-origin: 50% 50%;
+    transition: gap 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-reveal-banner {
+    position: absolute;
+    border: 0.25rem solid rgba(117, 105, 95, 0.5);
+    border-radius: 1.25rem;
+    background-image: url('../images/animation_banner_image.png');
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-clip: border-box;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+    z-index: 6;
+    opacity: 1;
+    transition: opacity 140ms linear;
+}
+
+/* During animation the card becomes a transparent shell;
+   all visuals come from the flip faces */
+.portals.card-reveal-active .portal-card {
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible;
+    background: transparent !important;
+    border-color: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+
+/* Hide the card's own overlay during animation */
+.portals.card-reveal-active .portal-card::after {
+    display: none !important;
+}
+
+/* Hide coming-soon overlays during animation */
+.portals.card-reveal-active .portal-card.coming-soon::before,
+.portals.card-reveal-active .portal-card.coming-soon::after {
+    display: none !important;
+}
+
+/* ==========================================
+   Flip structure (injected by JS)
+   .portal-card
+     -> .card-flip-inner
+         -> .card-flip-front
+         -> .card-flip-back
+   ========================================== */
+
+.card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* Shared face rules */
+.card-flip-front,
+.card-flip-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-sizing: border-box;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+}
+
+/* ---- Front face: hero image slice ---- */
+.card-flip-front {
+    background-image: url('../images/animation_banner_image.png');
+    background-size: 300% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-clip: border-box;
+    z-index: 2;
+}
+
+/* ---- Back face: card content ---- */
+.card-flip-back {
+    transform: rotateY(180deg);
+    background: #fffdf9;
+    border: 0.25rem solid rgba(117, 105, 95, 0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+
+/* Replicate card overlay on the back face */
+.card-flip-back::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(226, 217, 205, 0.5);
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 0.75rem;
+}
+
+/* Keep content above the overlay */
+.card-flip-back .card-header,
+.card-flip-back .card-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Flip trigger ---- */
+.card-reveal-active.cr-flipped .card-flip-inner {
+    transform: rotateY(180deg);
+}
+
+/* ---- Post-animation: cards stay visible ---- */
+.portals.card-revealed .portal-card {
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Keep corner clipping stable while pieces animate and flip */
+.portals.card-reveal-active .portal-card {
+    border-radius: 1.25rem !important;
+}
+
+/* ---- Responsive: skip animation on narrow/stacked layouts ---- */
+@media (max-width: 900px) {
+    body[data-card-reveal="true"] .portal-card {
+        visibility: visible !important;
+        animation: fadeInUp 0.5s ease forwards !important;
+        opacity: 0 !important;
+    }
+}

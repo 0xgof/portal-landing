@@ -6,7 +6,8 @@
 const PORTAL_CONFIG = {
     designerComingSoon: false,   // Set to false to remove overlay
     partnerComingSoon: false,    // Set to false to remove overlay
-    backgroundLayout: "B"       // Set to "A" or "B" to switch background layout
+    backgroundLayout: "B",      // Set to "A" or "B" to switch background layout
+    cardRevealAnimation: true    // Set to false to disable card reveal animation on load
 };
 
 // Make config globally accessible
@@ -14,6 +15,11 @@ window.PORTAL_CONFIG = PORTAL_CONFIG;
 
 // Apply background layout data attribute immediately
 document.body.setAttribute('data-bg-layout', PORTAL_CONFIG.backgroundLayout);
+
+// Mark body for card reveal animation (prevents flash before JS runs)
+if (PORTAL_CONFIG.cardRevealAnimation) {
+    document.body.setAttribute('data-card-reveal', 'true');
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     
