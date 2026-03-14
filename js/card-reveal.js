@@ -5,6 +5,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!window.PORTAL_CONFIG || !window.PORTAL_CONFIG.cardRevealAnimation) return;
+    var REVEAL_IMAGE_URL = 'images/animation_banner_image.png';
 
     if (window.innerWidth < 900) {
         document.body.removeAttribute('data-card-reveal');
@@ -21,6 +22,41 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var hasStarted = false;
+
+    function preloadRevealImage(timeoutMs) {
+        return new Promise(function (resolve) {
+            var done = false;
+            var img = new Image();
+
+            function finish() {
+                if (done) return;
+                done = true;
+                resolve();
+            }
+
+            img.onload = function () {
+                if (img.decode) {
+                    img.decode().then(finish).catch(finish);
+                    return;
+                }
+                finish();
+            };
+            img.onerror = finish;
+            img.src = REVEAL_IMAGE_URL;
+
+            setTimeout(finish, timeoutMs || 3500);
+        });
+    }
+
+    function waitForFonts() {
+        if (!(document.fonts && document.fonts.ready)) {
+            return Promise.resolve();
+        }
+        return Promise.race([
+            document.fonts.ready,
+            new Promise(function (resolve) { setTimeout(resolve, 1500); })
+        ]);
+    }
 
     function startAnimation() {
         if (hasStarted) return;
@@ -192,13 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, T_EXPAND + T_CUT + T_SPLIT + T_FLIP + T_SETTLE);
     }
 
-    if (document.fonts && document.fonts.ready) {
-        Promise.race([
-            document.fonts.ready,
-            new Promise(function (resolve) { setTimeout(resolve, 1500); })
-        ]).then(startAnimation);
-    } else {
-        window.addEventListener('load', startAnimation, { once: true });
-        setTimeout(startAnimation, 300);
-    }
+    Promise.all([waitForFonts(), preloadRevealImage(3500)]).then(startAnimation);
+    window.addEventListener('load', startAnimation, { once: true });
+    setTimeout(startAnimation, 1200);
 });

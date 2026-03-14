@@ -30,10 +30,16 @@ portal-landing/
 ## Deploy
 
 ```powershell
-scp -i ~/.ssh/aggregator-key.pem -r * ubuntu@54.216.156.92:/var/www/landing/
+scp -i ~/.ssh/aggregator-key.pem -r * ubuntu@54.216.156.92:/var/www/portal-landing/
 ```
 
 Live at: https://admin.dreamdo.es/
+
+## For redeploy simply do:
+'''
+cd /var/www/portal-landing/
+git pull
+'''
 
 ## Links
 
