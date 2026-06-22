@@ -16,6 +16,15 @@ window.PORTAL_CONFIG = PORTAL_CONFIG;
 // Apply background layout data attribute immediately
 document.body.setAttribute('data-bg-layout', PORTAL_CONFIG.backgroundLayout);
 
+// STIX Two Math is only used by the hero title, which is hidden in layout B.
+// Load it on demand so the default (B) path doesn't fetch an unused webfont.
+if (PORTAL_CONFIG.backgroundLayout === 'A') {
+    const stix = document.createElement('link');
+    stix.rel = 'stylesheet';
+    stix.href = 'https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap';
+    document.head.appendChild(stix);
+}
+
 // Mark body for card reveal animation (prevents flash before JS runs)
 if (PORTAL_CONFIG.cardRevealAnimation) {
     document.body.setAttribute('data-card-reveal', 'true');

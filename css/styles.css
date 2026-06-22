@@ -1,12 +1,23 @@
-/* Import Components */
-@import '../components/cards/portal-card.css';
-@import '../components/buttons/portal-btn.css';
+/* Component stylesheets are linked from index.html (parallel download) instead of @import (waterfall) */
 
 /* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Visually hidden, but available to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 html {

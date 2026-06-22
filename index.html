@@ -6,7 +6,11 @@
     <title>DreamDo - Utility Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=STIX+Two+Math&display=swap" rel="stylesheet">
+    <!-- STIX Two Math (hero title) is layout-A only; injected by script.js when needed -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Component stylesheets linked directly (was @import in styles.css) to avoid a download waterfall -->
+    <link rel="stylesheet" href="components/cards/portal-card.css">
+    <link rel="stylesheet" href="components/buttons/portal-btn.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/card-reveal.css">
     <link rel="icon" type="image/svg+xml" href="images/logo.svg">
@@ -26,10 +30,12 @@
     </header>
 
     <main class="main-content">
-        <section class="hero">
-            <h1 class="hero-title">
+        <!-- Always-present heading: the visual hero is hidden in layout B, so this keeps a single semantic h1 for a11y/SEO -->
+        <h1 class="sr-only">DreamDo Utility Portal</h1>
+        <section class="hero" aria-hidden="true">
+            <p class="hero-title">
                 Welcome to the<br>dreamdo Utility Portal
-            </h1>
+            </p>
         </section>
 
         <section class="portals">
@@ -48,7 +54,7 @@
                 </div>
             </article>
 
-            <article class="portal-card designer-card coming-soon">
+            <article class="portal-card designer-card">
                 <div class="card-header">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 19l7-7 3 3-7 7-3-3z"/>
@@ -65,7 +71,7 @@
                 </div>
             </article>
 
-            <article class="portal-card partner-card coming-soon">
+            <article class="portal-card partner-card">
                 <div class="card-header">
                     <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>

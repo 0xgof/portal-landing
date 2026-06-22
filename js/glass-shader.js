@@ -112,17 +112,57 @@ export function initGlassShader(container) {
         const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
         scene.add(mesh);
 
-        window.addEventListener('resize', () => {
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            material.uniforms.uResolution.value.set(container.clientWidth, container.clientHeight);
-        });
+        function syncSize() {
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            renderer.setSize(w, h);
+            material.uniforms.uResolution.value.set(w, h);
+        }
 
+        // The container is sized as a % of the body, which grows as images/cards
+        // load, so the init-time height can be stale. Re-sync on any reflow.
+        window.addEventListener('resize', syncSize);
+        window.addEventListener('load', syncSize);
+        if (typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(syncSize).observe(container);
+        }
+
+        // Pause the render loop when the tab is hidden or the decorative
+        // background is scrolled out of view — it's purely cosmetic, no need to
+        // burn GPU/CPU when nobody can see it.
         const clock = new THREE.Clock();
-        function animate() {
-            requestAnimationFrame(animate);
+        let running = false;
+        let onScreen = true;
+
+        function frame() {
+            if (!running) return;
+            requestAnimationFrame(frame);
             material.uniforms.uTime.value = clock.getElapsedTime();
             renderer.render(scene, camera);
         }
-        animate();
+
+        function start() {
+            if (running || document.hidden || !onScreen) return;
+            running = true;
+            clock.getDelta(); // discard time accumulated while paused
+            frame();
+        }
+
+        function stop() {
+            running = false;
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stop(); else start();
+        });
+
+        if (typeof IntersectionObserver !== 'undefined') {
+            new IntersectionObserver((entries) => {
+                onScreen = entries[0].isIntersecting;
+                if (onScreen) start(); else stop();
+            }).observe(container);
+        }
+
+        start();
     });
 }

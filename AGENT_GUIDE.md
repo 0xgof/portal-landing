@@ -135,20 +135,20 @@ Or just refresh the browser manually after changes.
 | EC2 IP | 54.216.156.92 |
 | Domain | admin.dreamdo.es |
 | SSH Key | `~/.ssh/aggregator-key.pem` |
-| Deploy Path | `/var/www/landing/` |
+| Deploy Path | `/var/www/portal-landing/` |
 | Nginx Config | `/etc/nginx/sites-available/admin-dashboard` |
 
 ### Deploy Steps
 
 1. **Copy files to server**
    ```powershell
-   scp -i ~/.ssh/aggregator-key.pem -r * ubuntu@54.216.156.92:/var/www/landing/
+   scp -i ~/.ssh/aggregator-key.pem -r * ubuntu@54.216.156.92:/var/www/portal-landing/
    ```
 
 2. **SSH to server and set permissions**
    ```bash
    ssh -i ~/.ssh/aggregator-key.pem ubuntu@54.216.156.92
-   sudo chown -R ubuntu:ubuntu /var/www/landing
+   sudo chown -R ubuntu:ubuntu /var/www/portal-landing
    ```
 
 3. **Configure Nginx** (if not already done)
@@ -157,12 +157,12 @@ Or just refresh the browser manually after changes.
    ```nginx
    # Landing page at root
    location = / {
-       root /var/www/landing;
+       root /var/www/portal-landing;
        index index.html;
    }
    
    location ~ ^/(css|js|images)/ {
-       root /var/www/landing;
+       root /var/www/portal-landing;
        expires 30d;
    }
    ```
@@ -177,7 +177,7 @@ Or just refresh the browser manually after changes.
 
 ```powershell
 # From portal-landing folder
-scp -i ~/.ssh/aggregator-key.pem -r * ubuntu@54.216.156.92:/var/www/landing/
+scp -i ~/.ssh/aggregator-key.pem -r * ubuntu@54.216.156.92:/var/www/portal-landing/
 ```
 
 ## Existing Nginx Configuration

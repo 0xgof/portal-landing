@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!window.PORTAL_CONFIG || !window.PORTAL_CONFIG.cardRevealAnimation) return;
     var REVEAL_IMAGE_URL = 'images/animation_banner_image.png';
 
-    if (window.innerWidth < 900) {
+    // Match the CSS breakpoint exactly (css/card-reveal.css @media max-width:900px).
+    // innerWidth includes the scrollbar, so matchMedia avoids off-by-one disagreement.
+    if (window.matchMedia('(max-width: 900px)').matches) {
         document.body.removeAttribute('data-card-reveal');
         return;
     }
@@ -61,6 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function startAnimation() {
         if (hasStarted) return;
         hasStarted = true;
+        // Failsafe: data-card-reveal hides the cards (css/card-reveal.css:12).
+        // If anything in the animation throws — sync setup or a phase callback —
+        // force-clear it so the page degrades to visible cards instead of blank.
+        // Comfortably exceeds the full sequence duration (~4.1s).
+        setTimeout(function () {
+            document.body.removeAttribute('data-card-reveal');
+        }, 8000);
         requestAnimationFrame(runAnimation);
     }
 
@@ -102,11 +111,12 @@ document.addEventListener('DOMContentLoaded', function () {
             card.appendChild(inner);
         });
 
-        var T_EXPAND = 800;
-        var T_CUT = 400;
-        var T_SPLIT = 1100;
-        var T_FLIP = 1300;
-        var T_SETTLE = 500;
+        // Phase durations (ms), applied as cumulative setTimeout offsets below:
+        var T_EXPAND = 800;   // hero-scale grow from scale(0.72) to 1
+        var T_CUT = 400;      // single banner swapped for 3 slice fronts
+        var T_SPLIT = 1100;   // slices separate into the real card grid gap
+        var T_FLIP = 1300;    // each slice rotates 180deg, revealing card backs
+        var T_SETTLE = 500;   // settle into final state, drop transient transforms
 
         portals.classList.add('card-reveal-active');
         portals.style.visibility = '';
@@ -117,7 +127,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var realGap = rect2.left - rect1.right;
         var cardW = rect1.width;
 
-        // Pixel-accurate image slicing with horizontal overhang
+        // Pixel-accurate image slicing with horizontal overhang.
+        // overhangX bleeds the banner 36px past each edge so the outer slices
+        // keep full-bleed imagery when the gap opens (no bare card edge).
         var overhangX = 36;
         var bgWidth = (3 * cardW) + (2 * overhangX);
 
@@ -164,8 +176,11 @@ document.addEventListener('DOMContentLoaded', function () {
         banner.style.backgroundPosition = (-overhangX) + 'px center';
         portals.appendChild(banner);
 
-        // Initial hero-scale expansion (no shrink-back compensation)
-        portals.style.transform = 'scale(0.72)';
+        // Initial hero-scale expansion (no shrink-back compensation).
+        // 0.72 ~= the on-screen size of the merged banner at "hero" scale; phase 1
+        // grows it to 1 so the reveal reads as a banner blooming into the grid.
+        var startScale = 'scale(0.72)';
+        portals.style.transform = startScale;
         void portals.offsetHeight;
 
         portals.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -217,7 +232,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             portals.style.transform = '';
             portals.style.transition = '';
-            portals.classList.remove('cr-merged');
             portals.classList.add('card-revealed');
             document.body.removeAttribute('data-card-reveal');
             if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
