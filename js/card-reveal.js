@@ -176,28 +176,6 @@ document.addEventListener('DOMContentLoaded', function () {
         banner.style.backgroundPosition = (-overhangX) + 'px center';
         portals.appendChild(banner);
 
-        function restoreStaticCards() {
-            if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
-
-            cards.forEach(function (card) {
-                var inner = card.querySelector('.card-flip-inner');
-                var back = card.querySelector('.card-flip-back');
-
-                if (inner && back) {
-                    while (back.firstChild) {
-                        card.appendChild(back.firstChild);
-                    }
-                    inner.remove();
-                }
-
-                card.style.height = '';
-                card.style.transition = '';
-            });
-
-            portals.classList.remove('card-reveal-active', 'cr-flipped');
-            portals.classList.add('card-revealed');
-        }
-
         // Initial hero-scale expansion (no shrink-back compensation).
         // 0.72 ~= the on-screen size of the merged banner at "hero" scale; phase 1
         // grows it to 1 so the reveal reads as a banner blooming into the grid.
@@ -254,8 +232,13 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             portals.style.transform = '';
             portals.style.transition = '';
+            portals.classList.add('card-revealed');
             document.body.removeAttribute('data-card-reveal');
-            restoreStaticCards();
+            if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+            cards.forEach(function (card) {
+                card.style.height = maxHeight + 'px';
+                card.style.transition = '';
+            });
         }, T_EXPAND + T_CUT + T_SPLIT + T_FLIP + T_SETTLE);
     }
 

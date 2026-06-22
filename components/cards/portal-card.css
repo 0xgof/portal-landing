@@ -5,21 +5,18 @@
 
 /* Portal Card Base */
 .portal-card {
-    --portal-card-radius: 1.25rem;
-    --portal-card-border-width: 0.25rem;
-    --portal-card-inner-radius: calc(var(--portal-card-radius) - var(--portal-card-border-width));
     background: #FFFDF9;
-    border-radius: var(--portal-card-radius);
+    border-radius: 1.25rem;
     overflow: hidden;
     box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     animation: fadeInUp 0.5s ease forwards;
     opacity: 0;
-    padding: 0;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     position: relative;
-    border: var(--portal-card-border-width) solid rgba(117, 105, 95, 0.5);
+    border: 0.25rem solid rgba(117, 105, 95, 0.5);
     cursor: pointer;
 }
 
@@ -34,7 +31,7 @@
     background-color: rgba(226, 217, 205, 0.5);
     pointer-events: none;
     z-index: 0;
-    border-radius: var(--portal-card-inner-radius);
+    border-radius: 1rem;
     transition: background-color 0.3s ease;
 }
 
@@ -59,7 +56,7 @@
     bottom: 0;
     background: rgba(128, 128, 128, 0.4);
     z-index: 10;
-    border-radius: var(--portal-card-inner-radius);
+    border-radius: 1rem;
     pointer-events: none;
     display: flex;
     justify-content: center;
@@ -108,7 +105,7 @@
     justify-content: space-between;
     flex-direction: row-reverse;
     color: #fff;
-    border-radius: var(--portal-card-inner-radius) var(--portal-card-inner-radius) 0 0;
+    border-radius: 0.4375rem;
 }
 
 .card-icon {
@@ -219,7 +216,8 @@
 
 @media (max-width: 768px) {
     .portal-card {
-        --portal-card-radius: 1rem;
+        border-radius: 1rem;
+        padding: 0.4rem;
     }
 
     .card-header {
@@ -246,7 +244,8 @@
 
 @media (max-width: 480px) {
     .portal-card {
-        --portal-card-border-width: 0.2rem;
+        border: 0.2rem solid rgba(117, 105, 95, 0.5);
+        padding: 0.3rem;
         min-height: 18.5rem;
     }
 
